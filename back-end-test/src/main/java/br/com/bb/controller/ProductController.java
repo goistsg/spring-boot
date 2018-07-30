@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @ResponseBody
@@ -19,7 +18,7 @@ public class ProductController {
 
     @GetMapping(value = "/{id}")
     public Product findById(@PathVariable("id") Long id) {
-        return service.findOne(id);
+        return service.findById(id);
     }
 
     @GetMapping(value = "/listAll")
@@ -29,7 +28,6 @@ public class ProductController {
 
     @GetMapping(value = "/listByCategory/{categoryId}")
     public List<Product> findByCategoryId(@PathVariable("categoryId") Long categoryId) {
-        List<Product> listProducts = (List<Product>) service.findAll();
-        return listProducts.stream().filter(product -> product.getCategory().getId() == categoryId).collect(Collectors.toList());
+        return (List<Product>) service.findAll();
     }
 }
